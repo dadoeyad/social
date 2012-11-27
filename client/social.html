@@ -1,0 +1,85 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>social</title>
+</head>
+
+<body>
+  {{> page}}
+</body>
+
+<template name="page">
+  {{#if showAddDialog}}
+    {{> addDialog}}
+  {{/if}}
+  <div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <ul class="nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a id="add" href="#add">Add Friends</a></li>
+      </ul>
+      <div class="pull-right">
+          {{loginButtons align="right"}}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <h1>Welcome to social!</h1>
+      {{#if currentUser}}
+        {{> newPost}}
+      {{else}}
+        <h3 style="margin-bottom: 0px">Sign in yo</h3>
+      {{/if}}
+    </div>
+    {{#if currentUser}}
+      {{> posts}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="newPost">
+  <label>New Post</label>
+  <textarea class="text span5"></textarea>
+
+  <a href="#" class="btn btn-primary save">Post</a>
+</template>
+
+<template name="posts">
+<div class="row">
+<div class="span5">
+  {{#each posts}}
+    <blockquote>
+      <p>{{text}}</p>
+      <small>{{displayName}}</small>
+    </blockquote>
+  {{/each}}
+  </div>
+</div>
+</template>
+
+<template name="addDialog">
+<div class="mask"> </div>
+  <div class="mask"> </div>
+  <div class="modal">
+    <div class="modal-header">
+      <button type="button" class="close cancel">&times;</button>
+      <h3>Add Friend</h3>
+    </div>
+
+    <div class="modal-body">
+      {{#if addError}}
+        <div class="alert alert-error">{{addError}}</div>
+      {{/if}}
+
+      <label>Email</label>
+      <input type="text" class="Email span5">
+
+    </div>
+
+    <div class="modal-footer">
+      <a href="#" class="btn cancel">Cancel</a>
+      <a href="#" class="btn btn-primary save">Add friend</a>
+    </div>
+  </div>
+</template>
